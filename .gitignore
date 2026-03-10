@@ -1,0 +1,32 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserdata
+*.xcworkspace/xcuserdata/
+xcuserdata/
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Swift Package Manager
+.build/
+Packages/
+
+# Archives
+*.xcarchive
+
+# Distribution
+*.dmg
+*.zip
+*.app
+
+# Agent/tool configs
+.agent/
+.agents/
+.augment/
+.kiro/
+.openhands/
+.vibe/
+skills-lock.json
