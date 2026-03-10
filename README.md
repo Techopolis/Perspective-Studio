@@ -56,9 +56,8 @@ All UI contributions must be tested with VoiceOver. This is not optional.
 
 MIT. See [LICENSE](LICENSE) for details.
 
-## Part of the Perspective Family
-
-Perspective Studio is the native macOS front-end. It is part of a larger ecosystem:
+## Related Projects
 
 - [Perspective Server](https://github.com/Techopolis/Perspective-Server) — macOS menu bar app that exposes on-device Foundation Models as an OpenAI-compatible local API
 - [Perspective CLI](https://github.com/Techopolis/PerspectiveCLI) — Command-line interface for running Foundation Models and MLX models
+- [Perspective Web](https://github.com/Techopolis/perspective-intelligence-web-community) — Open-source AI chat app powered by Apple Foundation Models, runs in any browser
