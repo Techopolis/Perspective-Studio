@@ -15,7 +15,7 @@ Built with SwiftUI and [MLX Swift](https://github.com/ml-explore/mlx-swift-lm) b
 - Text-to-speech playground with MLX Audio and VibeVoice
 - Automatic conversation summarization to stay within context limits
 - Beginner-friendly mode that hides technical jargon
-- Full VoiceOver support, keyboard navigation, and screen reader-friendly UI throughout
+- Fully accessible with VoiceOver and keyboard navigation
 
 ## Requirements
 
@@ -42,9 +42,7 @@ Built with SwiftUI and [MLX Swift](https://github.com/ml-explore/mlx-swift-lm) b
 
 ## Accessibility
 
-Perspective Studio is built with accessibility as a core requirement, not an afterthought. The primary developer is blind and uses VoiceOver daily.
-
-Every interactive element has proper accessibility labels and hints. Every state change is announced. Every feature is keyboard navigable. If you find an accessibility issue, please report it using our [accessibility issue template](https://github.com/Techopolis/Perspective-Studio/issues/new?template=accessibility.yml).
+Perspective Studio is fully accessible. VoiceOver, keyboard navigation, and screen reader support are built in from day one. If you find an accessibility issue, please report it using our [accessibility issue template](https://github.com/Techopolis/Perspective-Studio/issues/new?template=accessibility.yml).
 
 ## Contributing
 
