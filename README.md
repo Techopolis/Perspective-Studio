@@ -60,5 +60,5 @@ MIT. See [LICENSE](LICENSE) for details.
 
 Perspective Studio is the native macOS front-end. It is part of a larger ecosystem:
 
-- [Perspective Server](https://github.com/Techopolis/Perspective-Server) — Backend inference server
-- [Perspective Chat](https://github.com/Techopolis/Perspective-Chat) — Cross-platform chat client
+- [Perspective Server](https://github.com/Techopolis/Perspective-Server) — macOS menu bar app that exposes on-device Foundation Models as an OpenAI-compatible local API
+- [Perspective CLI](https://github.com/Techopolis/PerspectiveCLI) — Command-line interface for running Foundation Models and MLX models
