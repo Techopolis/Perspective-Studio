@@ -3,10 +3,12 @@ import SwiftData
 
 struct ContentView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @Binding var selectedTab: SidebarTab
+    let chatViewModel: ChatViewModel
 
     var body: some View {
         if hasCompletedOnboarding {
-            MainView()
+            MainView(selectedTab: $selectedTab, chatViewModel: chatViewModel)
         } else {
             OnboardingContainerView {
                 hasCompletedOnboarding = true
@@ -64,45 +66,28 @@ enum SidebarTab: String, CaseIterable, Identifiable {
 
 struct MainView: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var chatViewModel = ChatViewModel()
-    @State private var selectedTab: SidebarTab = .discover
+    @Binding var selectedTab: SidebarTab
+    @Bindable var chatViewModel: ChatViewModel
 
     var body: some View {
         NavigationSplitView {
             VStack(spacing: 0) {
+                List(selection: $selectedTab) {
+                    ForEach(SidebarTab.allCases) { tab in
+                        Label(tab.title, systemImage: tab.symbol)
+                            .tag(tab)
+                    }
+                }
+                .listStyle(.sidebar)
+
                 if selectedTab == .chat {
+                    Divider()
                     ConversationListView(
                         selectedConversation: $chatViewModel.selectedConversation,
-                        modelState: chatViewModel.modelState,
                         onNewChat: { chatViewModel.createConversation(in: modelContext) },
                         onDelete: { chatViewModel.deleteConversation($0, in: modelContext) }
                     )
                 }
-
-                Divider()
-
-                HStack(spacing: 0) {
-                    ForEach(SidebarTab.allCases) { tab in
-                        Button {
-                            selectedTab = tab
-                        } label: {
-                            VStack(spacing: 2) {
-                                Image(systemName: tab.symbol)
-                                    .font(.system(size: 16))
-                                Text("\(tab.title)  \u{2318}\(tab.shortcutNumber)")
-                                    .font(.caption2)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 6)
-                            .foregroundStyle(selectedTab == tab ? .primary : .secondary)
-                        }
-                        .buttonStyle(.plain)
-                        .keyboardShortcut(tab.keyEquivalent, modifiers: .command)
-                        .accessibilityLabel("\(tab.title), Command \(tab.shortcutNumber)")
-                    }
-                }
-                .padding(.horizontal, 8)
-                .padding(.bottom, 4)
             }
             .navigationSplitViewColumnWidth(min: 200, ideal: 240, max: 300)
         } detail: {
@@ -114,7 +99,9 @@ struct MainView: View {
                     ContentUnavailableView("Select a Conversation", systemImage: "bubble.left")
                 }
             case .discover:
-                ModelDiscoveryView(models: chatViewModel.availableModels, chatViewModel: chatViewModel)
+                NavigationStack {
+                    ModelDiscoveryView(models: chatViewModel.availableModels, chatViewModel: chatViewModel)
+                }
             case .downloads:
                 DownloadsView(chatViewModel: chatViewModel)
             case .settings:
@@ -122,13 +109,11 @@ struct MainView: View {
             }
         }
         .navigationSplitViewStyle(.balanced)
-        .overlay {
-            Button("New Chat") {
-                selectedTab = .chat
+        .onChange(of: selectedTab) { _, newTab in
+            // When switching to Chat via keyboard shortcut with no conversation, create one
+            if newTab == .chat && chatViewModel.selectedConversation == nil {
                 chatViewModel.createConversation(in: modelContext)
             }
-            .keyboardShortcut("n", modifiers: .command)
-            .hidden()
         }
         .onChange(of: chatViewModel.selectedConversation) {
             Task { await LLMService.shared.resetSession() }
