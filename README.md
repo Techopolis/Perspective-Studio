@@ -6,6 +6,18 @@ Perspective Studio is a free, open-source macOS app for running open-source AI m
 
 Built with SwiftUI and [MLX Swift](https://github.com/ml-explore/mlx-swift-lm) by [Techopolis](https://github.com/Techopolis).
 
+## See It in Action
+
+https://github.com/Techopolis/Perspective-Studio/raw/main/screenshots/preview.mp4
+
+| Discover Models | Model Details | Chat |
+|---|---|---|
+| ![Discover tab showing model cards organized by category with compatibility badges](screenshots/discover.png) | ![Model detail view for Llama 3.2 showing capabilities, RAM compatibility, and download button](screenshots/model-detail.png) | ![Chat conversation with a local Llama model running entirely on-device](screenshots/chat.png) |
+
+| Download Progress | Settings |
+|---|---|
+| ![Model download in progress with a progress bar on the detail view](screenshots/downloading.png) | ![Settings view with experience level, model defaults, device memory, and text-to-speech options](screenshots/settings.png) |
+
 ## Features
 
 - Browse thousands of models from mlx-community on Hugging Face
